@@ -68,9 +68,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
-          fetch-depth: 1
+          fetch-depth: 0
+          ref: main
 
       - name: Update docker-compose used tag
         run: "sed -i \"s/.*image:.*/    image: ${{ env.REGISTRY }}\\/${{ github.event.repository.name }}:${{ github.sha }}/g\" docker-compose.yaml"
@@ -78,9 +79,7 @@ jobs:
       - name: Update helm used tag
         run: "cd helm/java-app && sed -i \"s/.*full:.*/  full: ${{ env.REGISTRY }}\\/${{ github.event.repository.name }}:${{ github.sha }}/g\" values.yaml"
 
-      - name: Commit files
-        run: |
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git commit -m "Releasing ${{ github.sha }}" -a
-          git push origin HEAD:main
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Releasing ${{ github.sha }}
+          branch: main
