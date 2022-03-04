@@ -1,14 +1,14 @@
 service:
-  port: 8080
+  port: $SERVER_PORT
 
 application:
-  file-path: "/tmp/devops-dummy-app-access.txt"
+  file-path: "$APPLICATION_FILE_PATH"
 
 spring:
   security:
     user:
-      name: "admin"
-      password: "admin"
+      name: "$SPRING_SECURITY_USER_NAME"
+      password: "$SPRING_SECURITY_USER_PASSWORD"
 
 management:
   server:
