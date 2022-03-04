@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  java-app:
+    container_name: java-app
+    environment:
+      SERVER_PORT: 8080
+      APPLICATION_FILE_PATH: ./data/devops-dummy-app-access.txt
+      SPRING_SECURITY_USER_NAME: admin
+      SPRING_SECURITY_USER_PASSWORD: admin
+    image: nufusrufus/devops-interview-app:latest
+    volumes:
+    - ./data:/home/javauser/data:rw
+    ports:
+    - published: 8080
+      target: 8080
+    - published: 8081
+      target: 8081

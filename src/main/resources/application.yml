@@ -1,0 +1,25 @@
+service:
+  port: $SERVER_PORT
+
+application:
+  file-path: "$APPLICATION_FILE_PATH"
+
+spring:
+  security:
+    user:
+      name: "$SPRING_SECURITY_USER_NAME"
+      password: "$SPRING_SECURITY_USER_PASSWORD"
+
+management:
+  server:
+    port: 8081
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+  health:
+    probes:
+      enabled: true
