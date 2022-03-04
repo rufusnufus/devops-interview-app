@@ -1,6 +1,6 @@
 image:
   # -- java-app image
-  full: nufusrufus/devops-interview-app:c3ded375aee8a592b8ce08a9bd6024285e6765e6
+  full: nufusrufus/devops-interview-app:f3e93a45309e49b4f7cb3529f68752d11ea8d440
   # -- java-app image pull policy
   pullPolicy: IfNotPresent
 
