@@ -1,0 +1,60 @@
+image:
+  # -- java-app image
+  full: nufusrufus/devops-interview-app:latest
+  # -- java-app image pull policy
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  # -- User ID for the container
+  runAsUser: 1000
+  runAsGroup: 101
+  fsGroup: 101
+
+securityContext:
+  # -- Container child process can gain more privileges than its parent
+  allowPrivilegeEscalation: false
+  runAsNonRoot: true
+
+service:
+  type: ClusterIP
+  ports:
+    http: 8080
+    monitoring: 8081
+
+containerPorts:
+  # -- java-app container http server port
+  http: 8080
+
+authorization:
+  username: "admin"
+  password: "pass"
+
+statefulset:
+  updateStrategy:
+    type: RollingUpdate
+  podManagementPolicy: Parallel
+  replicaCount: 1
+
+persistence:
+  mountPath: /home/javauser/data
+  accessModes: [ "ReadWrite" ]
+  size: 256M
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "500m"
+  limits:
+    memory: "512Mi"
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

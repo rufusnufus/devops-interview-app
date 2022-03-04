@@ -13,6 +13,7 @@ This micro-service is responsible for the following action within the dummy proj
 There are three main ways of installing application:
 - [Local](#local-installation)
 - [Docker](#docker-installation)
+- [Kubernetes](#kubernetes)
 
 ### Local installation
 Before running the application, please install its prerequisites:
@@ -54,6 +55,31 @@ To run from the master branch, follow the instructions below:
       ```bash
       docker-compose up -d
       ```
+### Kubernetes
+
+Before installing Hydrosphere Monitoring, please install its prerequisites: 
+
+* [Helm 3.0+](https://helm.sh/docs/intro/install/)
+* [Kubernetes 1.16+ with v1 API](https://kubernetes.io/docs/setup/)
+
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/nufusrufus/devops-interview-app
+    cd devops-interview-app/helm
+    ```
+2. Install the chart:
+    ```sh
+    helm install java-app java-app --namespace interview --create-namespace
+    ```
+
+After the chart has been installed, you have to expose the `http server` component outside of the cluster. For the sake of simplicity, we will just port-forward it locally.
+
+```sh
+kubectl port-forward svc/java-app 8080:8080 -n interview
+```
+
+Application will be available at [localhost:8080](http://localhost:8080/).
+
 
 ## System requirements
 
