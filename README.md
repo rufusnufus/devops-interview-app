@@ -116,3 +116,4 @@ main endpoints:
   file
 - `GET /actuator/health/readiness` on port `8081`: readiness probe for the application
 - `GET /actuator/health/liveness` on port `8081`: liven probe for the application
+
