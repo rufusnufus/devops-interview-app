@@ -3,6 +3,7 @@ Dockerfile
 docker-compose.yaml
 .git
 .gitignore
+.github/**
 README.md
 bin
 build
