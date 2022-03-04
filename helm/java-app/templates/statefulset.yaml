@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: {{ include "java-app.fullname" . }}
-  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "java-app.labels" . | nindent 4 }}
 spec:
@@ -24,14 +23,8 @@ spec:
       labels:
         {{- include "java-app.selectorLabels" . | nindent 8 }}
         logType: "java"
-        app: {{ template "java-app.name" . }}
-        release: {{ .Release.Name }}
         logging: "true"
     spec:
-      {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -98,3 +91,4 @@ spec:
         resources:
           requests:
             storage: {{ .Values.persistence.size | quote }}
+          

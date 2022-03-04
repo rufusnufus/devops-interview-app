@@ -1,19 +1,15 @@
 image:
   # -- java-app image
-  full: nufusrufus/devops-interview-app:latest
+  full: nufusrufus/devops-interview-app:c3ded375aee8a592b8ce08a9bd6024285e6765e6
   # -- java-app image pull policy
   pullPolicy: IfNotPresent
-
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
-
-podAnnotations: {}
 
 podSecurityContext:
   # -- User ID for the container
   runAsUser: 1000
+  # -- GID for the container
   runAsGroup: 101
+  # -- group for the container
   fsGroup: 101
 
 securityContext:
@@ -22,9 +18,12 @@ securityContext:
   runAsNonRoot: true
 
 service:
+  # -- Kubernetes Service type
   type: ClusterIP
   ports:
+    # -- java-app service http port
     http: 8080
+    # -- java-app service monitoring port
     monitoring: 8081
 
 containerPorts:
@@ -32,29 +31,47 @@ containerPorts:
   http: 8080
 
 authorization:
+  # -- username for login
   username: "admin"
+  # -- password for login
   password: "pass"
 
 statefulset:
   updateStrategy:
+    # -- Update Strategy Type for java-app
     type: RollingUpdate
+  # -- Pod Management Policy for statefulset
   podManagementPolicy: Parallel
-  replicaCount: 1
+  # -- java-app replicas
+  replicaCount: 2
 
 persistence:
+  ## -- mount path for file
   mountPath: /home/javauser/data
-  accessModes: [ "ReadWrite" ]
+  ## -- access Modes
+  accessModes: [ "ReadWriteOnce" ]
+  # -- size for PVC
   size: 256M
 
 resources:
   requests:
+    # -- The requested memory for the container
     memory: "256Mi"
+    # -- The requested cpu for the container
     cpu: "500m"
   limits:
+    # -- The memory limit for the container
     memory: "512Mi"
 
+# -- Map of annotations to add to the pods
+podAnnotations: {}
+
+# -- Node labels for manager pods assignment
+## ref: https://kubernetes.io/docs/user-guide/node-selection/
 nodeSelector: {}
 
 tolerations: []
 
+# -- Affinity for manager pods assignment
+## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
 affinity: {}

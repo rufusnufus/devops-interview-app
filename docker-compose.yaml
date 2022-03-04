@@ -8,7 +8,7 @@ services:
       APPLICATION_FILE_PATH: ./data/devops-dummy-app-access.txt
       SPRING_SECURITY_USER_NAME: admin
       SPRING_SECURITY_USER_PASSWORD: admin
-    image: nufusrufus/devops-interview-app:latest
+    image: nufusrufus/devops-interview-app:c3ded375aee8a592b8ce08a9bd6024285e6765e6
     volumes:
     - ./data:/home/javauser/data:rw
     ports:
