@@ -1,0 +1,14 @@
+apiVersion: v2
+name: java-app
+description: A Helm chart for java application devops interview task
+type: application
+version: 0.1.0
+appVersion: 0.0.1
+keywords:
+  - soramitsu
+  - interview-task
+sources: 
+  - https://github.com/soramitsu/devops-interview-app
+maintainers:
+  - name: rufusnufus
+    email: r.talalaeva@innopolis.university
